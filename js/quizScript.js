@@ -50,13 +50,27 @@ const questions = [
 
 }
 ];
-let currentQuestionIndex = 0;
-let score = 0;
+
 
 const questionContainer = document.getElementById("question-container");
 const scoreContainer = document.getElementById("score-container");
 const nextButton = document.getElementById("next-button");
 
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1 ));
+        [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+    }
+}
+
+function initializeQuiz() {
+    shuffleArray(questions); // Shuffle questions at the start
+    questions.forEach((question) => {
+    const correctAnswer = question.options[question.correct]; // Get the correct answer
+    shuffleArray(question.options); //Shuff options for each answer
+    question.correct = question.options.indexOf(correctAnswer);}); // Make correct answer the new shuffled index of the correct answer
+    loadQuestion();
+}
 function loadQuestion() {
     const questionData = questions[currentQuestionIndex];
     questionContainer.innerHTML = `
@@ -82,12 +96,61 @@ function selectAnswer(selectedIndex) {
     }
     else {
         buttons[selectedIndex].style.backgroundColor = "red"; // Change color to red for wrong answer
+        buttons[questionData.correct].style.backgroundColor = "green"; // Show correct answer
         alert("Wrong! The correct answer was: " + questionData.options[questionData.correct]);
 
     }
     nextButton.style.display = "inline-block";
 
 }
+
+function showFinalScore() {
+    questionContainer.innerHTML = '<h2>Quiz Completed!</h2>';
+    scoreContainer.innerHTML = `<h3>Your final score is ${score} out of ${questions.length}.<h3>`;
+    nextButton.style.display = "none";
+
+    const restartButton = document.createElement("button");
+    restartButton.innerText = "Restart Quiz";
+    restartButton.classList.add("restart-button");
+
+    scoreContainer.appendChild(restartButton);
+    createConfetti(); // Call the confetti function when showing the final score
+    restartButton.addEventListener("click", restartQuiz); // Add event listener to restart button
+}
+
+function restartQuiz() {
+    currentQuestionIndex = 0;
+    score = 0;
+    scoreContainer.innerHTML = "";
+    initializeQuiz(); // Restart the quiz
+
+    const restartButton = document.querySelector(".restart-button");
+    if (restartButton) restartButton.remove(); // Remove the restart button if it exists
+    
+    const confettiElements = document.querySelectorAll(".confetti");
+    confettiElements.forEach((confetti) => confetti.remove()); // Remove confetti elements  
+}
+function createConfetti() {
+    const confettiContainer = document.body;
+    for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.width = Math.random() * 10 + 5 + 'px';
+        confetti.style.height = confetti.style.width;
+        confetti.style.backgroundColor = getRandomColor()
+        confetti.style.animationDelay = Math.random() * 2 + 's';
+        confetti.style.animationDuration = Math.random() * 3 + 2 + 's'; // Random duration  
+
+        confettiContainer.appendChild(confetti);
+    }
+}
+function getRandomColor() {
+    const colors = ['#ffeb3b', '#ff4500', 'ff8c00', '4caf50', '#00bcd4', '#ff69b4', '#8a2be2'];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
 nextButton.addEventListener("click", () => {
     currentQuestionIndex++;
     if (currentQuestionIndex < questions.length) {
@@ -98,9 +161,7 @@ nextButton.addEventListener("click", () => {
         showFinalScore();
     }
 });
-function showFinalScore() {
-    questionContainer.innerHTML = '<h2>Quiz Completed!</h2>';
-    scoreContainer.innerHTML = `<p>Your final score is ${score} out of ${questions.length}.</p>`;
-    nextButton.style.display = "none";
-}
-loadQuestion();
+
+let currentQuestionIndex = 0;
+let score = 0;
+initializeQuiz(); // Start the quiz when the page loads

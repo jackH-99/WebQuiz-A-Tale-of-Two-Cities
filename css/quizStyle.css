@@ -6,6 +6,7 @@ body {
     background: linear-gradient(to bottom, #00247d, #ffffff, #cf142b); /* British flag colors */
     color: #333;
     text-align: center;
+    overflow: hidden;
 }
 
 /* Title styling */
@@ -50,6 +51,17 @@ h2 {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+.restart-button {
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    background-color: #00247d;
+    color: #ffffff;
+    border: 5px solid #cf142b;
+    border: radius 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 .question-image{
     max-width: 100%;
     height: auto;
@@ -61,6 +73,9 @@ h2 {
 }
 .quiz-container {
     text-align: center;
+    max-width: 100vw;
+    max-height: 100vh;
+    overflow: hidden;
 }
 ul {
     list-style: none;
@@ -106,4 +121,15 @@ footer {
     margin-top: 50px;
     font-size: 0.9rem;
     color: #666;
+}
+.confetti {
+    position: absolute;
+    top: 0;
+    animation: fall linear infinite;
+    z-index: 1000;
+
+}
+@keyframes fall {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
 }
