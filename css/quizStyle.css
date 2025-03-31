@@ -1,0 +1,61 @@
+/* Gneeral body styling */
+body {
+    font-family: 'Georgia', serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #00247d, #ffffff, #cf142b); /* British flag colors */
+    color: #333;
+    text-align: center;
+}
+
+/* Title styling */
+h1 {
+    font-size: 3rem;
+    color: #cf142b; /* Red color from both flags */
+    text-shadow: 2px 2px #00247d; /* Blue shadow for contrast */
+    margin-top: 50px;
+}
+h2 {
+    font-size: 2rem;
+    color: #00247d;
+    margin-bottom: 20px;
+
+}
+.title-container{
+    border: 5px solid #cf142b;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 80%;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+.image {
+    max-width: 50%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border: 3px solid #cf142b;
+    border-radius: 15px;
+}
+.button-container .button {
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    background-color: #00247d;
+    color: #ffffff;
+    border: 5px solid #cf142b;
+    border: radius 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+    
+button:hover {
+    background-color: #cf142b;
+}
+footer {
+    margin-top: 50px;
+    font-size: 0.9rem;
+    color: #666;
+}
